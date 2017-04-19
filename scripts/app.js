@@ -69,6 +69,7 @@
     var label = selected.textContent;
     app.getForecast(key, label);
     app.selectedCities.push({key: key, label: label});
+    app.saveSelectedCities();
     app.toggleAddDialog(false);
   });
 
@@ -176,6 +177,11 @@
     keys.forEach(function(key) {
       app.getForecast(key);
     });
+  };
+
+  // Saves data in local forage
+  app.saveSelectedCities = function(){
+    window.localforage.setItem('selectedCities', app.selectedCities);
   };
 
   app.updateForecastCard(injectedForecast);
