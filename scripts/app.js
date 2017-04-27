@@ -184,6 +184,27 @@
     window.localforage.setItem('selectedCities', app.selectedCities);
   };
 
-  app.updateForecastCard(injectedForecast);
+  // Ask for the list of selectedCities 
+  document.addEventListener('DOMContentLoaded', function(){
+    window.localforage.getItem('selectedCities', function(err, cityList){
+      // If there's one, save it to app.selectedCities
+      if(cityList){
+        app.selectedCities = cityList;
+        // get the forecast for each city by iterating over the array
+        app.selectedCities.forEach(function(city){
+          app.getForecast(city.key, city.label);
+        });
+      } else {
+        // if there was not any selected cities
+        // update de UI with the injected weather forecast 
+        app.updateForecastCard(injectedForecast);
+        // and save the list of cities to the local forage
+        app.selectedCities = [
+          {key: injectedForecast.key, label: injectedForecast.label}
+        ];
+        app.saveSelectedCities();
+      }
+    });
+  });
 
 })();
