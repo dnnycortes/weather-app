@@ -184,7 +184,7 @@
     window.localforage.setItem('selectedCities', app.selectedCities);
   };
 
-  // Ask for the list of selectedCities 
+  // Ask for the list of selectedCities loaded in local forage before I can make calls to it
   document.addEventListener('DOMContentLoaded', function(){
     window.localforage.getItem('selectedCities', function(err, cityList){
       // If there's one, save it to app.selectedCities
