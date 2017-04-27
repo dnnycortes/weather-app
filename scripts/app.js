@@ -208,9 +208,10 @@
   });
 
 
-  //
+  // Check if service worker are supported by navigator, if they are..
   if('serviceWorker' in navigator){
     navigator.serviceWorker
+    // I register a service worker 
     .register('/service-worker.js')
     .then(function(){
         console.log('Service Worker Registered');

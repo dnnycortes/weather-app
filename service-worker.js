@@ -4,7 +4,7 @@ var filesToCache = [
   '/',
   '/index.html',
   '/scripts/app.js',
-  '/scripts/localforage-1.4.0.js',
+  '/scripts/localforage.js',
   '/styles/ud811.css',
   '/images/clear.png',
   '/images/cloudy-scattered-showers.png',
@@ -21,7 +21,7 @@ var filesToCache = [
   '/images/wind.png'
 ];
 
-// Install event, will install our service worker which will cache all the elements required by the  App Shell, html, css, javascript
+// Install event, that caches all of the files needed by the app shell
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
   e.waitUntil(
@@ -33,7 +33,7 @@ self.addEventListener('install', function(e) {
   );
 });
 
-// Activate event, gets a list of current cache keys and iterates through them using the map function 
+// Activate event, gets a list of current cache keys and iterates through them using the map function. Purge any of the old and outdated files, and make sure we're always serving the latest 
 self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
   e.waitUntil(
@@ -50,7 +50,7 @@ self.addEventListener('activate', function(e) {
 
 
 
-// Fetch event, to work with slow networks or even offline
+// Fetch event, to work with slow networks or even offline, tries to get data from the cache if not goes and gets it from the network
 self.addEventListener('fetch', function(e) {
   console.log('[ServiceWorker] Fetch', e.request.url);
   e.respondWith(
